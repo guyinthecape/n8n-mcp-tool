@@ -44,7 +44,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args } = request.params;
-
+  console.error("🟡 Payload received from Claude:", JSON.stringify(args, null, 2));
   if (name !== "create_workflow") {
     throw new Error(`Unknown tool: ${name}`);
   }
