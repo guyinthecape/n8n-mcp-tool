@@ -107,3 +107,7 @@ Contributions are welcome\! If you find a bug or have an idea for an improvement
 ## License
 
 This project is licensed under the ISC License. See the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
+
+-----
+
+**🚨 Note**: A much more comprehensive n8n MCP server tool already exists here: [https://github.com/leonardsellem/n8n-mcp-server](https://github.com/leonardsellem/n8n-mcp-server). I built this project primarily as a personal learning exercise.
