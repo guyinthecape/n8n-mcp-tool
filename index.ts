@@ -14,6 +14,26 @@ import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { createWorkflow } from "./tools/create_workflow.js";
 
+// 🧼 Clean only allowed fields before passing to n8n
+function sanitizeWorkflowJson(input: Record<string, unknown>) {
+  console.error("Ran this function:", JSON.stringify(input, null, 2));
+  const allowedTopLevelKeys = new Set(["name", "nodes", "connections", "settings"]);
+  const sanitized: Record<string, unknown> = {};
+
+  for (const key in input) {
+    if (allowedTopLevelKeys.has(key)) {
+      sanitized[key] = input[key];
+    }
+  }
+
+  // Ensure required `settings` key exists (even if empty)
+  if (!("settings" in sanitized)) {
+    sanitized["settings"] = {};
+  }
+
+  return sanitized;
+}
+
 const CreateWorkflowArgsSchema = z.object({
   workflow_json: z.record(z.unknown())
 });
@@ -45,14 +65,16 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args } = request.params;
   console.error("🟡 Payload received from Claude:", JSON.stringify(args, null, 2));
+
   if (name !== "create_workflow") {
     throw new Error(`Unknown tool: ${name}`);
   }
 
   const parsed = CreateWorkflowArgsSchema.parse(args);
+  const cleanedJson = sanitizeWorkflowJson(parsed.workflow_json); // ✅ Call the sanitizer here
 
   const result = await createWorkflow({
-    workflow_json: parsed.workflow_json,
+    workflow_json: cleanedJson,
   });
 
   return {

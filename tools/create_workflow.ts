@@ -11,8 +11,11 @@ export async function createWorkflow({
   const apiKey = process.env.N8N_API_KEY;
   let baseUrl = process.env.N8N_BASE_URL;
 
+  // ✅ Validate presence before proceeding
   if (!apiKey || !baseUrl) {
-    throw new Error("Missing N8N_API_KEY or N8N_BASE_URL in environment variables.");
+    console.error("❌ Missing required environment variables.");
+    console.error("Ensure N8N_API_KEY and N8N_BASE_URL are set in your Claude config or .env file.");
+    process.exit(1);
   }
 
   // Ensure trailing slash
