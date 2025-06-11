@@ -1,16 +1,23 @@
 {
   "name": "n8n-mcp-tool",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc && chmod +x dist/*.js",
     "prepare": "npm run build",
     "start": "cross-env NODE_ENV=production node dist/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "n8n",
+    "workflow",
+    "automation",
+    "tool",
+    "mcp",
+    "modelcontextprotocol"
+  ],
+  "author": "Your Name/Organization",
   "license": "ISC",
-  "description": "",
+  "description": "A tool to create new workflows in a self-hosted n8n instance from a JSON definition using the Model Context Protocol.",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.5.0",
     "axios": "^1.9.0",
@@ -25,6 +32,9 @@
   },
   "type": "module",
   "bin": {
-    "mcp-n8n-create-workflow": "./dist/index.js"
-  }
+    "mcp-n8n-create-workflow": "dist/index.js"
+  },
+  "files": [
+    "dist/"
+  ]
 }
