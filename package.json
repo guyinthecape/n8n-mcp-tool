@@ -4,6 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc && chmod +x dist/*.js",
+    "postbuild": "rm -rf server && cp -R dist server",
     "prepare": "npm run build",
     "start": "cross-env NODE_ENV=production node dist/index.js"
   },

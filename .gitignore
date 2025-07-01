@@ -36,3 +36,7 @@ local-test.mjs
 
 # Coverage directory
 coverage/
+
+manifest.json
+n8n-mcp-tool-1.0.0.tgz
+n8n-mcp-tool.dxt
